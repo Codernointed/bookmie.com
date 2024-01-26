@@ -1,15 +1,24 @@
 //main.dart
 
+import 'package:bookmie/Custom_classes/auth_service.dart';
+import 'package:bookmie/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'Custom_classes/theme_provider.dart';
 import 'signin.dart';
 
-void main() => runApp(ChangeNotifierProvider(
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AuthService().init(); 
+  runApp(
+    ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
       child: const MyApp(),
-    ));
+    ),
+  );
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -39,49 +48,8 @@ class MyApp extends StatelessWidget {
         },
       ),
 
-      home: const AuthenticateSolo1Widget(),
+      home:AuthService().isAuthenticated() ? HomePage(accessToken: AuthService().accessToken) 
+          : const AuthenticateSolo1Widget(),
     );
   }
 }
-
-// class SplashAndAuthenticate extends StatefulWidget {
-//   const SplashAndAuthenticate({Key? key}) : super(key: key);
-
-//   @override
-//   _SplashAndAuthenticateState createState() => _SplashAndAuthenticateState();
-// }
-
-// class _SplashAndAuthenticateState extends State<SplashAndAuthenticate> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     // Simulate a delay before navigating to AuthenticateSolo1Widget
-//     Future.delayed(const Duration(seconds: 4), () {
-//       Navigator.pushReplacement(
-//         context as BuildContext,
-//         MaterialPageRoute(
-//             builder: (context) => const AuthenticateSolo1Widget()),
-//       );
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: MediaQuery.of(context).size.width,
-//       height: MediaQuery.of(context).size.height,
-//       decoration: const BoxDecoration(
-//         image: DecorationImage(
-//           fit: BoxFit.cover,
-//           image: AssetImage('assets/splash_screen.jpeg'),
-//         ),
-//       ),
-//       // child: Scaffold(
-//       //   body: Center(
-//       //     child: Image.asset(
-//       //         'assets/splash_screen.jpeg'), // Replace with your splash image
-//       //   ),
-//       // ),
-//     );
-//   }
-// }

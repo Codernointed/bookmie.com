@@ -1,14 +1,13 @@
 //signin page
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
 
-// import 'package:bookmie/Custom_classes/AccessTokenProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'Custom_classes/auth_service.dart';
+import 'Custom_classes/auth_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:provider/provider.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'pages/home_page.dart';
 
 class AuthenticateSolo1Widget extends StatefulWidget {
@@ -27,39 +26,8 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
   final passwordLoginController = TextEditingController();
   bool passwordLoginVisibility = true;
   bool isLoading = false;
-  final secureStorage = FlutterSecureStorage();
-
-  // Function to log in and obtain an access token
-  Future<String?> logInAndGetAccessToken(String email, String password) async {
-    final apiUrl = Uri.parse(
-        'https://ethenatx.pythonanywhere.com/management/obtain-token/');
-
-    try {
-      final response = await http.post(apiUrl,
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode({
-            'email': email,
-            'password': password,
-          }));
-
-      if (response.statusCode == 200) {
-        final jsonResponse = json.decode(response.body) as Map<String, dynamic>;
-        final accessToken = jsonResponse['access'];
-        print(accessToken);
-        return accessToken;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print('Error: $e');
-      return null;
-    }
-  }
-
-  // Function to handle login button press
   Future<void> handleLogin() async {
+    // Retrieve user inputs
     final email = emailAddressLoginController.text;
     final password = passwordLoginController.text;
 
@@ -67,33 +35,22 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
       isLoading = true;
     });
 
-    final accessToken = await logInAndGetAccessToken(email, password);
+    final success = await AuthService().login(email, password);
 
     setState(() {
       isLoading = false;
     });
 
-    if (accessToken != null) {
-      // Use the AccessTokenProvider to set the access token
-      Navigator.push(
+    if (success) {
+      // Navigate to homepage with access token
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => HomePage(
-            accessToken: accessToken,
+            accessToken: AuthService().accessToken,
           ),
         ),
       );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Login Successful!'),
-        ),
-      );
-
-      // Navigator.pushNamed(
-      //   context,
-      //   '/homepage',
-      // );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -220,7 +177,6 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                           padding: const EdgeInsets.only(top: 24.0),
                           child: ElevatedButton(
                             onPressed: () async {
-                              FocusScope.of(context).unfocus();
                               handleLogin();
                             },
                             style: ElevatedButton.styleFrom(
