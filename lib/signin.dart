@@ -84,7 +84,7 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                 child: SingleChildScrollView(
                   child: Container(
                     width: 300,
-                    height: 425,
+                    height: 450,
                     decoration: BoxDecoration(
                       color: const Color(0x99000000),
                       borderRadius: BorderRadius.circular(15.0),
@@ -112,7 +112,7 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                             controller: emailAddressLoginController,
                             obscureText: false,
                             inputFormatters: [
-                              LengthLimitingTextInputFormatter(50),
+                              LengthLimitingTextInputFormatter(30),
                             ],
                             decoration: const InputDecoration(
                               labelText: 'Email Address',
@@ -202,15 +202,14 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                             ),
                           ),
                           if (isLoading)
-                            if (isLoading)
-                              Container(
-                                height: 50.0,
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                    color: Color(0xFFF59B15),
-                                  ),
+                            Container(
+                              height: 50.0,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: Color(0xFFF59B15),
                                 ),
                               ),
+                            ),
                         ],
                       ),
                     ),
