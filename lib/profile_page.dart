@@ -35,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     fetchData();
   }
+
   Future<void> _showLogoutConfirmationDialog() async {
     return showDialog(
       context: context,
@@ -48,11 +49,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 await AuthService().logout();
                 Navigator.of(context).pop(); // Close the dialog
                 Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AuthenticateSolo1Widget(),
-                      ),
-                    );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AuthenticateSolo1Widget(),
+                  ),
+                );
                 // Navigator.of(context).pushNamedAndRemoveUntil('/signin', (route) => false);
               },
               child: const Text('Yes'),
@@ -68,7 +69,6 @@ class _ProfilePageState extends State<ProfilePage> {
       },
     );
   }
-
 
   Future<void> fetchData() async {
     final url =
@@ -159,11 +159,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       _buildButton('Icome Stats', Icons.attach_money_rounded),
                 ),
                 GestureDetector(
-                  onTap:_showLogoutConfirmationDialog,
-                  child:
-                      _buildButton('Logout', Icons.logout, color: Color(0xFFF59B15)),
+                  onTap: _showLogoutConfirmationDialog,
+                  child: _buildButton('Logout', Icons.logout,
+                      color: Color(0xFFF59B15)),
                 ),
-                
               ],
             ),
           ),
@@ -302,7 +301,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
+              padding: const EdgeInsetsDirectional.fromSTEB(9, 9, 9, 9),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
