@@ -1,13 +1,11 @@
 //main.dart
 
 import 'package:bookmie/Custom_classes/auth_service.dart';
-import 'package:bookmie/pages/home_page.dart';
+import 'package:bookmie/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'Custom_classes/theme_provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'signin.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,8 +60,8 @@ class MyApp extends StatelessWidget {
         },
       ),
 
-      home:AuthService().isAuthenticated() ? HomePage(accessToken: AuthService().accessToken) 
-          : const AuthenticateSolo1Widget(),
+      home:const SplashScreen(),
+      
     );
   }
 }
