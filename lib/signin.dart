@@ -1,5 +1,7 @@
 // signin_page.dart
 
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -82,7 +84,7 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                 child: SingleChildScrollView(
                   child: Container(
                     width: 300,
-                    height: 415,
+                    height: 425,
                     decoration: BoxDecoration(
                       color: const Color(0x99000000),
                       borderRadius: BorderRadius.circular(15.0),
@@ -200,11 +202,15 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                             ),
                           ),
                           if (isLoading)
-                            const Center(
-                              child: CircularProgressIndicator(
-                                color: Color(0xFFF59B15),
+                            if (isLoading)
+                              Container(
+                                height: 50.0,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Color(0xFFF59B15),
+                                  ),
+                                ),
                               ),
-                            ),
                         ],
                       ),
                     ),
