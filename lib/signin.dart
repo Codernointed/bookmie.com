@@ -1,13 +1,12 @@
-//signin page
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+// signin_page.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'Custom_classes/auth_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:provider/provider.dart';
 
+import 'Custom_classes/auth_service.dart';
 import 'pages/home_page.dart';
 
 class AuthenticateSolo1Widget extends StatefulWidget {
@@ -26,6 +25,7 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
   final passwordLoginController = TextEditingController();
   bool passwordLoginVisibility = true;
   bool isLoading = false;
+
   Future<void> handleLogin() async {
     // Retrieve user inputs
     final email = emailAddressLoginController.text;
@@ -79,34 +79,34 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                 ),
               ),
               child: Center(
-                child: Container(
-                  width: 300,
-                  height: 415,
-                  decoration: BoxDecoration(
-                    color: const Color(0x99000000),
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Bookmie.com",
-                              style: TextStyle(
-                                fontSize: 29,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFFF59B15),
+                child: SingleChildScrollView(
+                  child: Container(
+                    width: 300,
+                    height: 415,
+                    decoration: BoxDecoration(
+                      color: const Color(0x99000000),
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Bookmie.com",
+                                style: TextStyle(
+                                  fontSize: 29,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFFF59B15),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: TextFormField(
+                            ],
+                          ),
+                          const SizedBox(height: 20.0),
+                          TextFormField(
                             controller: emailAddressLoginController,
                             obscureText: false,
                             inputFormatters: [
@@ -130,10 +130,8 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                             ),
                             maxLines: null,
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 12.0),
-                          child: TextFormField(
+                          const SizedBox(height: 12.0),
+                          TextFormField(
                             controller: passwordLoginController,
                             obscureText: passwordLoginVisibility,
                             inputFormatters: [
@@ -172,10 +170,8 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                             ),
                             maxLines: 1,
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 24.0),
-                          child: ElevatedButton(
+                          const SizedBox(height: 24.0),
+                          ElevatedButton(
                             onPressed: () async {
                               handleLogin();
                             },
@@ -190,10 +186,8 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: TextButton(
+                          const SizedBox(height: 20.0),
+                          TextButton(
                             onPressed: () {
                               // Navigate to the forgot password screen
                             },
@@ -205,14 +199,14 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                               ),
                             ),
                           ),
-                        ),
-                        if (isLoading)
-                          const Center(
-                            child: CircularProgressIndicator(
-                              color: Color(0xFFF59B15),
+                          if (isLoading)
+                            const Center(
+                              child: CircularProgressIndicator(
+                                color: Color(0xFFF59B15),
+                              ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
