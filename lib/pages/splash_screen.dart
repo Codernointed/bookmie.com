@@ -1,3 +1,5 @@
+import 'package:bookmie/Custom_classes/auth_service.dart';
+import 'package:bookmie/pages/home_page.dart';
 import 'package:bookmie/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +22,8 @@ class _SplashScreenState extends State<SplashScreen>
 
     Future.delayed(const Duration(seconds: 10), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => AuthenticateSolo1Widget(),
+        builder: (_) =>  AuthService().isAuthenticated() ? HomePage(accessToken: AuthService().accessToken) 
+           : const AuthenticateSolo1Widget(),
       ));
     });
   }
