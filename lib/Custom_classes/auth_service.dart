@@ -87,6 +87,15 @@ class AuthService {
     _accessToken = prefs.getString('accessToken') ?? '';
     _refreshToken = prefs.getString('refreshToken') ?? '';
   }
+  // Logout and clear tokens
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('accessToken');
+    prefs.remove('refreshToken');
+    _accessToken = '';
+    _refreshToken = '';
+    
+  }
 
   // Initialize the AuthService
   Future<void> init() async {

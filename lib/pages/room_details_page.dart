@@ -34,44 +34,7 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
     fetchRooms();
   }
 
-  Future<void> showFilterDialog(
-    String title,
-    String hintText,
-    void Function(String) onFilter,
-  ) async {
-    String filterValue = '';
-
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(title),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                onChanged: (value) {
-                  filterValue = value;
-                },
-                decoration: InputDecoration(
-                  hintText: hintText,
-                ),
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  onFilter(filterValue);
-                  Navigator.pop(context);
-                },
-                child: Text('Apply Filter'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
+  
   void searchGender(String query) {
     setState(() {
       filteredRooms = rooms
@@ -314,7 +277,7 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.63,
+        childAspectRatio: 0.693,
       ),
       itemCount: filteredRooms.isEmpty ? rooms.length : filteredRooms.length,
       shrinkWrap: true,
