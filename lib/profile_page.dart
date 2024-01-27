@@ -1,7 +1,9 @@
 //profile page.dart
 import 'dart:convert';
+import 'package:bookmie/Custom_classes/auth_service.dart';
 import 'package:bookmie/pages/income_stats.dart';
 import 'package:bookmie/pages/statistics_page.dart';
+import 'package:bookmie/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -33,6 +35,40 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     fetchData();
   }
+  Future<void> _showLogoutConfirmationDialog() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                await AuthService().logout();
+                Navigator.of(context).pop(); // Close the dialog
+                Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AuthenticateSolo1Widget(),
+                      ),
+                    );
+                // Navigator.of(context).pushNamedAndRemoveUntil('/signin', (route) => false);
+              },
+              child: const Text('Yes'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('No'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   Future<void> fetchData() async {
     final url =
@@ -122,7 +158,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   child:
                       _buildButton('Icome Stats', Icons.attach_money_rounded),
                 ),
-                _buildButton('Logout', Icons.logout, color: Color(0xFFF59B15)),
+                GestureDetector(
+                  onTap:_showLogoutConfirmationDialog,
+                  child:
+                      _buildButton('Logout', Icons.logout, color: Color(0xFFF59B15)),
+                ),
+                
               ],
             ),
           ),
