@@ -37,8 +37,10 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
     setState(() {
       isLoading = false;
     });
+    FocusScope.of(context).unfocus();
 
     if (success) {
+      
       // Navigate to homepage with access token
       Navigator.pushReplacement(
         context,
@@ -88,7 +90,7 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
@@ -175,6 +177,7 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                           child: ElevatedButton(
                             onPressed: () async {
                               handleLogin();
+                              
                             },
                             style: ElevatedButton.styleFrom(
                               fixedSize: const Size(230, 30),
