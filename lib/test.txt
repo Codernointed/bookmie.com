@@ -1,23 +1,16 @@
 TODO
 Manasseh
-- HomePage Listview Modification
-- Splash screen implementation
+- HomePage Listview Adaptabititly, rendering to fit all phone heights
 - Hostel and Username Arrangement and expansion,Profile Page
 - ✓ Buttons Theme correction including the border radiuses
 - Brigtness Toggle and back button arrangment and toggle ability,ProfilePage
 - Font Style 
 
 Paul
-- Fix RoomDetails API
-- Populate Sales Graph with income API
-- Modify Stats Graphs
+
 - Work on Snackbars
 - Handle API Errors
-- Implement Circular Progress to All Endpoint Calls
-- Work with Shared Preferences
-- Implement the access and refresh tokens
 - App Notifications
-- Contunual Showing of error messages for qr scanning
 - Work on the QR Scan preferred border
 
 

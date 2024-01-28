@@ -1,16 +1,25 @@
 //main.dart
 
 import 'package:bookmie/Custom_classes/auth_service.dart';
-import 'package:bookmie/pages/home_page.dart';
 import 'package:bookmie/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'Custom_classes/theme_provider.dart';
-// import 'signin.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+
+  final InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+  );
+
+  await flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+  );
+
   await AuthService().init(); 
   runApp(
     ChangeNotifierProvider(
@@ -20,6 +29,8 @@ void main() async {
   );
 }
 
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -49,8 +60,8 @@ class MyApp extends StatelessWidget {
         },
       ),
 
-      home:AuthService().isAuthenticated() ? HomePage(accessToken: AuthService().accessToken) 
-          : const SplashScreen(),
+      home:const SplashScreen(),
+      
     );
   }
 }
