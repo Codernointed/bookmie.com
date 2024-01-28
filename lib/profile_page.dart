@@ -10,6 +10,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import '/pages/edit_profile_page.dart';
 import '../Custom_classes/theme_provider.dart';
+import 'package:switcher_button/switcher_button.dart';
 
 class ProfilePage extends StatefulWidget {
   final String accessToken;
@@ -259,9 +260,9 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
-            child: Switch(
+            child: SwitcherButton(
               value: true,
-              onChanged: (bool value) {
+              onChange: (bool value) {
                 Provider.of<ThemeProvider>(context, listen: false)
                     .toggleTheme();
               },
