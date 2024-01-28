@@ -2,7 +2,7 @@ TODO
 Manasseh
 - HomePage Listview Adaptabititly, rendering to fit all phone heights
 - Hostel and Username Arrangement and expansion,Profile Page
-- Buttons Theme correction including the border radiuses
+- ✓ Buttons Theme correction including the border radiuses
 - Brigtness Toggle and back button arrangment and toggle ability,ProfilePage
 - Font Style 
 
