@@ -11,7 +11,7 @@ import 'Custom_classes/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AuthService().init(); 
+  await AuthService().init();
   runApp(
     ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
