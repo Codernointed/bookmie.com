@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:bookmie/Custom_classes/notification_uitls.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -33,8 +32,6 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
   void initState() {
     super.initState();
     fetchRooms();
-    
-    NotificationPage().scheduleWeeklyNotification();
   }
 
   
