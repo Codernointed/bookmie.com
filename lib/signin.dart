@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:provider/provider.dart';
@@ -99,12 +100,14 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                             children: [
                               Text(
                                 "Bookmie.com",
-                                style: TextStyle(
-                                  fontSize: 29,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xFFF59B15),
+                                style: GoogleFonts.outfit(
+                                  textStyle: TextStyle(
+                                    color: Color(0xFFF59B15),
+                                    fontSize: 29,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                           const SizedBox(height: 20.0),

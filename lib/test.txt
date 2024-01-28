@@ -1,11 +1,11 @@
 TODO
 Manasseh
-- HomePage Listview Modification
-- Splash screen implementation
-- Hostel and Username Arrangement and expansion,Profile Page
+- ✓ HomePage Listview Modification
+- ✓ Splash screen implementation
+- ✓ Hostel and Username Arrangement and expansion,Profile Page
 - ✓ Buttons Theme correction including the border radiuses
-- Brigtness Toggle and back button arrangment and toggle ability,ProfilePage
-- Font Style 
+- ✓ Brigtness Toggle and back button arrangment and toggle ability,ProfilePage
+- ✓ Font Style
 
 Paul
 - Fix RoomDetails API
