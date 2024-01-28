@@ -35,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     fetchData();
   }
+
   Future<void> _showLogoutConfirmationDialog() async {
     return showDialog(
       context: context,
@@ -47,12 +48,13 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () async {
                 await AuthService().logout();
                 Navigator.of(context).pop(); // Close the dialog
-                Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AuthenticateSolo1Widget(),
-                      ),
-                    );
+                Navigator.pushAndRemoveUntil(
+                  context,
+  MaterialPageRoute(
+    builder: (context) => AuthenticateSolo1Widget(),
+  ),
+  (route) => false,
+                );
                 // Navigator.of(context).pushNamedAndRemoveUntil('/signin', (route) => false);
               },
               child: const Text('Yes'),
@@ -68,7 +70,6 @@ class _ProfilePageState extends State<ProfilePage> {
       },
     );
   }
-
 
   Future<void> fetchData() async {
     final url =
@@ -159,11 +160,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       _buildButton('Icome Stats', Icons.attach_money_rounded),
                 ),
                 GestureDetector(
-                  onTap:_showLogoutConfirmationDialog,
-                  child:
-                      _buildButton('Logout', Icons.logout, color: Color(0xFFF59B15)),
+                  onTap: _showLogoutConfirmationDialog,
+                  child: _buildButton('Logout', Icons.logout,
+                      color: Color(0xFFF59B15)),
                 ),
-                
               ],
             ),
           ),
