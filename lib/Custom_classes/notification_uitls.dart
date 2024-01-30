@@ -1,91 +1,73 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart' show AndroidFlutterLocalNotificationsPlugin, AndroidInitializationSettings, AndroidNotificationChannel, AndroidNotificationDetails, FlutterLocalNotificationsPlugin, IOSInitializationSettings, Importance, InitializationSettings, NotificationDetails, UILocalNotificationDateInterpretation;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart';
 
-class NotificationPage extends StatefulWidget {
-  const NotificationPage({Key? key}) : super(key: key);
+class NotificationService {
+  static final NotificationService _instance = NotificationService._internal();
+  factory NotificationService() => _instance;
 
-  @override
-  _NotificationPageState createState() => _NotificationPageState();
-
-  void scheduleWeeklyNotification() {}
-}
-
-class _NotificationPageState extends State<NotificationPage> {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-
-
-  @override
-  void initState() {
-    super.initState();
-    initializeNotifications();
+  NotificationService._internal() {
+    // Initialize plugin for both Android and iOS
+    initNotifications();
   }
 
-  Future<void> initializeNotifications() async {
-    const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('app_icon');
+  void initNotifications() async {
+    tz.initializeTimeZones();
 
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: androidInitializationSettings,
+    // Declare channel here
+    const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'room_occupancy_reminder', // Channel ID
+      'Room Occupancy Reminders', // Channel name
+      importance: Importance.high,
     );
 
+    // Use the declared channel variable
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
     await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
+      InitializationSettings(
+        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+        // iOS: IOSInitializationSettings(),
+      ),
     );
   }
 
   Future<void> scheduleWeeklyNotification() async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-  AndroidNotificationDetails(
-    'weekly_notification_channel',
-    'Weekly Notification',
-    importance: Importance.max,
-    priority: Priority.high,
-  );
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      0,
+      'Update Room Occupancy',
+      'Reminder to update room occupancy for the week.',
+      _nextInstanceOfWeeklyTime(),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'room_occupancy_reminder',
+          'Room Occupancy Reminders',
+          importance: Importance.high,
+        ),
+      ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
+  }
 
+  TZDateTime _nextInstanceOfWeeklyTime() {
+    // Adjust this logic to match your desired weekly schedule
+    final now = tz.TZDateTime.now(local);
+    final scheduledDate =
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, 12, 54, 0); // 12:54 PM
 
-  const NotificationDetails platformChannelSpecifics =
-      NotificationDetails(android: androidPlatformChannelSpecifics);
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate.add(const Duration(minutes: 2)); // Schedule for next week
+    }
 
-  await flutterLocalNotificationsPlugin.zonedSchedule(
-  0, // Notification ID
-  'Room Update Reminder',
-  'Don\'t forget to update room occupancy!',
-  // _nextInstanceOfMonday(),
-  _nextInstanceOfTwoMinutes(),
-  androidPlatformChannelSpecifics as NotificationDetails,
-  // androidScheduleMode: AndroidAlarmManagerSchedule.alarmManager,
-  uiLocalNotificationDateInterpretation:
-      UILocalNotificationDateInterpretation.absoluteTime,
-);
-
-}
-
-//   TZDateTime _nextInstanceOfMonday() {
-//   final now = tz.TZDateTime.now(tz.local);
-//   final nextMonday = tz.TZDateTime(
-//     tz.local,
-//     now.year,
-//     now.month,
-//     now.day,
-//     10, // Set the time to 10:00 AM (adjust as needed)
-//   );
-
-//   return nextMonday.add(
-//     Duration(days: (DateTime.monday - nextMonday.weekday + 7) % 7),
-//   );
-// }
-TZDateTime _nextInstanceOfTwoMinutes() {
-  return tz.TZDateTime.now(tz.local).add(const Duration(minutes: 2));
-}
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(); // You can customize this page if needed
+    return scheduledDate;
   }
 }

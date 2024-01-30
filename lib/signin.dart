@@ -4,9 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:provider/provider.dart';
+import 'Custom_classes/auth_service.dart';
 
 import 'Custom_classes/auth_service.dart';
 import 'pages/home_page.dart';
@@ -42,8 +40,10 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
     setState(() {
       isLoading = false;
     });
+    FocusScope.of(context).unfocus();
 
     if (success) {
+      
       // Navigate to homepage with access token
       Navigator.pushReplacement(
         context,
@@ -176,6 +176,7 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                           ElevatedButton(
                             onPressed: () async {
                               handleLogin();
+                              
                             },
                             style: ElevatedButton.styleFrom(
                               fixedSize: const Size(230, 30),

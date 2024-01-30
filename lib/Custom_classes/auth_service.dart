@@ -1,5 +1,6 @@
 // auth_service.dart
 import 'dart:convert';
+import 'package:bookmie/Custom_classes/notification_uitls.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,6 +40,7 @@ class AuthService {
         _accessToken = data['access'];
         _refreshToken = data['refresh'];
         await _saveTokensToStorage();
+        await NotificationService().scheduleWeeklyNotification();
         return true;
       } else {
         // Handle login error
