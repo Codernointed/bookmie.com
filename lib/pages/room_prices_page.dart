@@ -320,7 +320,7 @@ class _RoomPricesPageState extends State<RoomPricesPage> {
 
       return true;
     } catch (e) {
-      showSnackBar('An error occurred. Please check your network connection.',
+      showSnackBar('An error occurred. Please limit number or check connection.',
           backgroundColor: Colors.red);
       showSnackBar('Select Room Capacity', backgroundColor: Colors.red);
       return false;
