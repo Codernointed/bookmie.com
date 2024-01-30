@@ -316,7 +316,7 @@ class _RoomPricesPageState extends State<RoomPricesPage> {
       // print(response.statusCode);
       showSnackBar(responseJson["message"],
           backgroundColor:
-              responseJson["success"] == true ? Colors.green : Colors.red);
+               Colors.green );
 
       return true;
     } catch (e) {
