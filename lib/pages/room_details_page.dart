@@ -403,7 +403,7 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
                           setState(() {
                             isSaving = true;
                           });
-
+                          FocusScope.of(context).unfocus();
                           final updatedRoom = room.copyWith(
                             roomNo: roomNoController.text,
                             roomCapacity:
