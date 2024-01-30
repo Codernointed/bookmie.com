@@ -316,11 +316,11 @@ class _RoomPricesPageState extends State<RoomPricesPage> {
       // print(response.statusCode);
       showSnackBar(responseJson["message"],
           backgroundColor:
-              responseJson["success"] == true ? Colors.green : Colors.red);
+               Colors.green );
 
       return true;
     } catch (e) {
-      showSnackBar('An error occurred. Please check your network connection.',
+      showSnackBar('An error occurred. Please limit number or check connection.',
           backgroundColor: Colors.red);
       showSnackBar('Select Room Capacity', backgroundColor: Colors.red);
       return false;
