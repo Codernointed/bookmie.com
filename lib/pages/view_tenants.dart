@@ -102,7 +102,7 @@ class _ViewTenantsPageState extends State<ViewTenantsPage> {
               itemBuilder: (context, index) {
                 final tenant = tenants[index];
                 return Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 1),
                   child: Card(
                     color: Theme.of(context).colorScheme.secondaryContainer,
                     // elevation: 2,
