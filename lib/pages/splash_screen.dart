@@ -22,8 +22,9 @@ class _SplashScreenState extends State<SplashScreen>
 
     Future.delayed(const Duration(seconds: 10), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) =>  AuthService().isAuthenticated() ? HomePage(accessToken: AuthService().accessToken) 
-           : const AuthenticateSolo1Widget(),
+        builder: (_) => AuthService().isAuthenticated()
+            ? HomePage(accessToken: AuthService().accessToken)
+            : const AuthenticateSolo1Widget(),
       ));
     });
   }

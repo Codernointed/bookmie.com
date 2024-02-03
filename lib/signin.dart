@@ -181,7 +181,11 @@ class _AuthenticateSolo1WidgetState extends State<AuthenticateSolo1Widget>
                               handleLogin();
                             },
                             style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(230, 30),
+                              fixedSize: const Size(260, 30),
+                              backgroundColor: Color(0xFFF17D09),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  ),elevation: 0.0,
                             ),
                             child: const Text(
                               'Login',
